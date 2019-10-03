@@ -77,6 +77,60 @@ func nestedSlice() {
 	}
 }
 
+//-----------------------------------------------------------------map (dictionary type)--------------------------------------------------------
+func mapOperations() {
+	// defining a map in 3 ways
+	//var sampleMap = map[string]int
+	//sampleMap := map[string]int
+
+	currency := map[string]string{
+		"AUD": "Australia Dollar",
+		"GBP": "Great Britain Pound",
+		"JPY": "Japan Yen",
+		"CHF": "Switzerland Franc",
+	}
+
+	//a. Adding to the map:
+	currency["USD"] = "USA Dollar"
+
+	fmt.Println("Currency with USD added: ", currency)
+
+	//b. Remove from the map:
+	delete(currency, "GBP")
+	fmt.Println("Currency with GBP deleted: ", currency)
+
+	//c. Replacing one entry with another:
+	currency["AUD"] = "New Zealand Dollar"
+	fmt.Println("Currency with AUD value replaced with NZD: ", currency)
+
+	//Ranging through the map:
+	for key, value := range currency {
+		fmt.Printf("%v might be equal to: %v\n", key, value)
+	}
+
+	// item contains checking
+	if value, ok := currency["USD"]; ok { //comma ok idiom
+		fmt.Printf("The value %s is present\n", value)
+		fmt.Println(ok)
+	}
+
+}
+
+func nestedMap() {
+	currency := map[string]map[string]int{
+		"Great Britain Pound": {"GBP": 1},
+		"Euro":                {"EUR": 2},
+		"USA Dollar":          {"USD": 3},
+	}
+
+	for key, value := range currency {
+		fmt.Printf("Currency Name: %v\n", key)
+		for k, v := range value {
+			fmt.Printf("\t Currency Code: %v\n\t\t\t Ranking: %v\n\n", k, v)
+		}
+	}
+}
+
 //-----------------------------------------------------------------main function-----------------------------------------------------------------
 func main() {
 	fmt.Println("------------------------------------------------------------------> Array sample")
@@ -85,4 +139,8 @@ func main() {
 	fmt.Println("------------------------------------------------------------------> Slice sample")
 	sliceOperations()
 	nestedSlice()
+
+	fmt.Println("------------------------------------------------------------------> Map sample")
+	mapOperations()
+	nestedMap()
 }
