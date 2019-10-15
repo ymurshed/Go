@@ -5,10 +5,15 @@ import (
 	"time"
 )
 
-//-----------------------------------------------------------------function declaration sample-----------------------------------------------------------------
+//-----------------------------------------------------------------function sample-----------------------------------------------------------------
 // func example with return type
 func addFuncWithReturnType(a int, b int) int {
 	return a + b
+}
+
+// func example with return type
+func subFuncWithReturnType(a int, b int) int {
+	return a - b
 }
 
 // func example without return type
@@ -17,6 +22,29 @@ func printResultFuncWithoutReturn(a int, b int, r int) {
 	fmt.Println("Sum = ", r)
 	x := fmt.Sprintf("%d + %d = %d", a, b, r) // string interpolation
 	fmt.Println(x)
+}
+
+//function pointer
+type calcFunc func(int, int) int
+
+func calc(a int, b int, f calcFunc) int {
+	r := f(a, b)
+	return r
+}
+
+// function with multiple return type
+func calcWithMultipleReturnType(a int, b int) (int, int) {
+	add := a + b
+	sub := a - b
+	return add, sub
+}
+
+// anonymous function
+func anonymousSum(a int, b int) {
+	sum := func(x int, y int) int {
+		return (x * a) + (y * b)
+	}(2, 3)
+	fmt.Println("Anonymous sum: ", sum)
 }
 
 //-----------------------------------------------------------------conditional sample-----------------------------------------------------------------
@@ -86,14 +114,22 @@ func main() {
 	var a = 10 // variable declaration
 	b := 50    // Short declaration
 
-	// func declaration sample
+	// func declaration sample ------------------------------------------------------>>>>>>>>>>>>>>>>>>>>>>>>>>
 	printResultFuncWithoutReturn(a, b, addFuncWithReturnType(a, b))
 
-	// conditional sample
+	res := calc(15, 5, subFuncWithReturnType)
+	fmt.Println("function pointer called: ", res)
+
+	add, sub := calcWithMultipleReturnType(100, 50)
+	fmt.Println("multiple return values are: ", add, sub)
+
+	anonymousSum(20, 30)
+
+	// conditional sample ----------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>
 	oddEvenUsingIfElse(addFuncWithReturnType(a, b))
 	dayPrintUsingSwitchCase()
 
-	// loop sample
+	// loop sample ------------------------------------------------------------------>>>>>>>>>>>>>>>>>>>>>>>>>>
 	sumUsingForLoop()
 	sumUsingWhileLoop()
 	printForEachItem()
